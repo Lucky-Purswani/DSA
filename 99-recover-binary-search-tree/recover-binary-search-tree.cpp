@@ -65,33 +65,65 @@
 //     }
 // };
 
+// class Solution {
+// public:
+//     void inorder(TreeNode* root, vector<TreeNode*>& ans) {
+//         if (!root) return;
+//         inorder(root->left, ans);
+//         ans.push_back(root);
+//         inorder(root->right, ans);
+//     }
+
+//     void recoverTree(TreeNode* root) {
+//         vector<TreeNode*> ans;
+//         inorder(root, ans);
+
+//         TreeNode* first = nullptr;
+//         TreeNode* second = nullptr;
+
+//         for (int i = 0; i < ans.size() - 1; i++) {
+//             if (ans[i]->val > ans[i + 1]->val) {
+//                 if (!first) {
+//                     first = ans[i];
+//                     second = ans[i + 1];
+//                 } else {
+//                     second = ans[i + 1];
+//                 }
+//             }
+//         }
+
+//         swap(first->val, second->val);
+//     }
+// };
+
 class Solution {
 public:
-    void inorder(TreeNode* root, vector<TreeNode*>& ans) {
+    TreeNode* first = nullptr;
+    TreeNode* second = nullptr;
+    TreeNode* prev = nullptr;
+
+    void inorder(TreeNode* root) {
         if (!root) return;
-        inorder(root->left, ans);
-        ans.push_back(root);
-        inorder(root->right, ans);
-    }
 
-    void recoverTree(TreeNode* root) {
-        vector<TreeNode*> ans;
-        inorder(root, ans);
+        inorder(root->left);
 
-        TreeNode* first = nullptr;
-        TreeNode* second = nullptr;
-
-        for (int i = 0; i < ans.size() - 1; i++) {
-            if (ans[i]->val > ans[i + 1]->val) {
-                if (!first) {
-                    first = ans[i];
-                    second = ans[i + 1];
-                } else {
-                    second = ans[i + 1];
-                }
+        // detect violation
+        if (prev && root->val < prev->val) {
+            if (!first) {
+                first = prev;
+                second = root;
+            } else {
+                second = root;
             }
         }
 
-        swap(first->val, second->val);
+        prev = root;
+
+        inorder(root->right);
+    }
+
+    void recoverTree(TreeNode* root) {
+        inorder(root);
+        if(first&&second) swap(first->val, second->val);
     }
 };
