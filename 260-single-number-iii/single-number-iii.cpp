@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        vector<int> ans;
+        // vector<int> ans;
         int xo = 0;
         for(auto &i : nums){
             xo ^= i;
