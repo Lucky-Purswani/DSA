@@ -1,3 +1,4 @@
+//Space optimization
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
@@ -26,6 +27,8 @@ public:
         return prev[amount] == 1e9 ? -1 : prev[amount];
     }
 };
+
+//Tabulation
 // class Solution {
 // public:
 //     int coinChange(vector<int>& coins, int amount) {
@@ -52,6 +55,8 @@ public:
 //         return dp[coins.size()][amount] == 1e9 ? -1 : dp[coins.size()][amount];
 //     }
 // };
+
+//Memoization
 // class Solution {
 // public:
 //     int solve(vector<int> coins, int amount, int n, vector<vector<int>> &dp){
@@ -75,6 +80,8 @@ public:
 //         return dp[coins.size()][amount] == 1e9 ? -1 : dp[coins.size()][amount];
 //     }
 // };
+
+//Recursion
 // class Solution {
 // public:
 //     int solve(vector<int> coins, int amount, int n, vector<vector<int>> &dp){
