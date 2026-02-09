@@ -1,31 +1,61 @@
-//Tabulation
+//Space optimization
 class Solution {
 public:
     int change(int sum, vector<int>& coins) {
         int n = coins.size();
-        // Use long long to avoid overflow
-        vector<vector<unsigned long long>> dp(n+1, vector<unsigned long long>(sum+1, 0));
+        vector<unsigned long long> prev(sum+1, 0), curr(sum+1, 0);
         
-        // Base case: sum 0 can always be made with 0 coins
-        for(int i = 0; i <= n; i++) {
-            dp[i][0] = 1;
-        }
+        // Base case: sum 0 can always be made
+        prev[0] = 1;
         
         for(int i = 1; i <= n; i++) {
+            curr[0] = 1; // sum 0 can always be made
             for(int j = 1; j <= sum; j++) {
                 if(j >= coins[i-1]) {
-                    unsigned long long np = dp[i-1][j];           // not pick
-                    unsigned long long p  = dp[i][j - coins[i-1]]; // pick
-                    dp[i][j] = p + np;
+                    unsigned long long np = prev[j];           // not pick
+                    unsigned long long p  = curr[j - coins[i-1]]; // pick
+                    curr[j] = p + np;
                 } else {
-                    dp[i][j] = dp[i-1][j]; // cannot pick
+                    curr[j] = prev[j]; // cannot pick
                 }
             }
+            prev = curr; // move to next row
         }
         
-        return dp[n][sum];
+        return prev[sum];
     }
 };
+
+
+
+// //Tabulation
+// class Solution {
+// public:
+//     int change(int sum, vector<int>& coins) {
+//         int n = coins.size();
+//         // Use long long to avoid overflow
+//         vector<vector<unsigned long long>> dp(n+1, vector<unsigned long long>(sum+1, 0));
+        
+//         // Base case: sum 0 can always be made with 0 coins
+//         for(int i = 0; i <= n; i++) {
+//             dp[i][0] = 1;
+//         }
+        
+//         for(int i = 1; i <= n; i++) {
+//             for(int j = 1; j <= sum; j++) {
+//                 if(j >= coins[i-1]) {
+//                     unsigned long long np = dp[i-1][j];           // not pick
+//                     unsigned long long p  = dp[i][j - coins[i-1]]; // pick
+//                     dp[i][j] = p + np;
+//                 } else {
+//                     dp[i][j] = dp[i-1][j]; // cannot pick
+//                 }
+//             }
+//         }
+        
+//         return dp[n][sum];
+//     }
+// };
 
 
 
