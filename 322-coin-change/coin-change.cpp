@@ -1,11 +1,38 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount == 0) return 0;
+        vector<int> prev(amount+1, 0);
+        vector<int> curr(amount+1, 0);
+
+        for(int j = 1; j<=amount; j++){
+            prev[j] = 1e9;
+        }
+        
+        for(int i = 1; i<=coins.size(); i++){
+            for(int j = 1; j<=amount; j++){
+                if(j >= coins[i-1]){
+                    int np = prev[j];
+                    int p = 1+curr[j-coins[i-1]];
+                    curr[j] = min(p,np);
+                }
+                else{
+                    int np = prev[j];
+                    curr[j] = np;
+                }
+            }
+            prev = curr;
+        }
+        return prev[amount] == 1e9 ? -1 : prev[amount];
+    }
+};
 // class Solution {
 // public:
 //     int coinChange(vector<int>& coins, int amount) {
 //         if(amount == 0) return 0;
-//         vector<int> prev(sum+1, 0);
-//         vector<int> curr(sum+1, 0);
+//         vector<vector<int>> dp(coins.size()+1, vector<int>(amount+1, 0));
 
-//         for(int j = 0; j<=amount; j++){
+//         for(int j = 1; j<=amount; j++){
 //             dp[0][j] = 1e9;
 //         }
         
@@ -25,32 +52,6 @@
 //         return dp[coins.size()][amount] == 1e9 ? -1 : dp[coins.size()][amount];
 //     }
 // };
-class Solution {
-public:
-    int coinChange(vector<int>& coins, int amount) {
-        if(amount == 0) return 0;
-        vector<vector<int>> dp(coins.size()+1, vector<int>(amount+1, 0));
-
-        for(int j = 1; j<=amount; j++){
-            dp[0][j] = 1e9;
-        }
-        
-        for(int i = 1; i<dp.size(); i++){
-            for(int j = 1; j<dp[0].size(); j++){
-                if(j >= coins[i-1]){
-                    int np = dp[i-1][j];
-                    int p = 1+dp[i][j-coins[i-1]];
-                    dp[i][j] = min(p,np);
-                }
-                else{
-                    int np = dp[i-1][j];
-                    dp[i][j] = np;
-                }
-            }
-        }
-        return dp[coins.size()][amount] == 1e9 ? -1 : dp[coins.size()][amount];
-    }
-};
 // class Solution {
 // public:
 //     int solve(vector<int> coins, int amount, int n, vector<vector<int>> &dp){
