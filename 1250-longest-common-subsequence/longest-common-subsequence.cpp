@@ -1,3 +1,4 @@
+//Space Optimization
 class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {
@@ -22,6 +23,8 @@ public:
         return prev[n];
     }
 };
+
+//Tabulation
 // class Solution {
 // public:
 //     int longestCommonSubsequence(string text1, string text2) {
@@ -44,6 +47,8 @@ public:
 //         return dp[m][n];
 //     }
 // };
+
+//Recursion+Memoization
 // class Solution {
 // public:
 //     int solve(string &x, string &y, int m, int n, vector<vector<int>> &dp){
