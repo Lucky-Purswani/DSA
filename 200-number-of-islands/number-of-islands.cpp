@@ -11,7 +11,6 @@ public:
     }
 
     int numIslands(vector<vector<char>>& isConn) {
-        int n = isConn.size();
         int ans = 0;
         for(int i = 0; i<isConn.size(); i++){
             for(int j = 0; j<isConn[0].size(); j++){
