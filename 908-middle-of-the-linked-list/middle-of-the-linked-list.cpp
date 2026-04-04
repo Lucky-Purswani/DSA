@@ -12,11 +12,24 @@ class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
         auto slow = head;
-        auto fast = head;
+        auto fast = head->next;
         while(fast && fast->next){
             slow = slow->next;
             fast = fast->next->next;
         }
+        if(fast) return slow->next;
         return slow;
     }
 };
+// class Solution {
+// public:
+//     ListNode* middleNode(ListNode* head) {
+//         auto slow = head;
+//         auto fast = head;
+//         while(fast && fast->next){
+//             slow = slow->next;
+//             fast = fast->next->next;
+//         }
+//         return slow;
+//     }
+// };
