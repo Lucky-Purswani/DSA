@@ -9,7 +9,7 @@ public:
         string last = strs.back();
 
         int i = 0;
-        while(i < first.size() && first[i] == last[i]){
+        while(i < last.size() && first[i] == last[i]){
             i++;
         }
 
