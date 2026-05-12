@@ -6,6 +6,7 @@ public:
         if(i < 0) return (currSum == sum/2);
 
         if(currSum == sum/2) return true;
+        if(currSum > sum/2) return false;
 
         if(dp[i][currSum] != -1) return dp[i][currSum];
 
@@ -26,7 +27,7 @@ public:
 
         if(sum % 2) return false;
         int n = nums.size();
-        vector<vector<int>> dp(n, vector<int>(sum+1, -1));
+        vector<vector<int>> dp(n, vector<int>(sum/2+1, -1));
         return isValid(nums, sum, 0, nums.size() - 1, dp);
     }
 };
