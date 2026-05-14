@@ -1,25 +1,29 @@
 class Solution {
 public:
-    void dfs(vector<vector<char>>& mat, int i, int j){
-        if(mat[i][j] == '0') return;
-        mat[i][j] = '0';
+    void dfs(vector<vector<char>>& grid, int i, int j){
+        if(grid[i][j] == '0') return;
 
-        if(i>=1) dfs(mat, i-1, j); //top
-        if(j>=1) dfs(mat, i, j-1); //left
-        if(i<mat.size()-1) dfs(mat, i+1, j); //bottom
-        if(j<mat[0].size()-1) dfs(mat, i, j+1); //right
+        grid[i][j] = '0';
+
+        //top
+        if(i>0) dfs(grid, i-1, j);
+        //down
+        if(i<grid.size()-1) dfs(grid, i+1, j);
+        //left
+        if(j>0) dfs(grid, i, j-1);
+        //right
+        if(j<grid[0].size()-1) dfs(grid, i, j+1);
     }
-
-    int numIslands(vector<vector<char>>& isConn) {
-        int ans = 0;
-        for(int i = 0; i<isConn.size(); i++){
-            for(int j = 0; j<isConn[0].size(); j++){
-                if(isConn[i][j] == '1'){
-                    dfs(isConn, i, j);
-                    ans++;
+    int numIslands(vector<vector<char>>& grid) {
+        int cnt = 0;
+        for(int i = 0; i<grid.size(); i++){
+            for(int j = 0; j<grid[0].size(); j++){
+                if(grid[i][j] == '1'){
+                    dfs(grid, i, j);
+                    cnt++;
                 }
             }
         }
-        return ans;
+        return cnt;
     }
 };
