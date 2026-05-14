@@ -11,7 +11,6 @@ class Solution {
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
         // code here
-        // if(image[sr][sc] == newColor) return image;
         dfs(image, sr, sc, newColor, image[sr][sc]);
         return image;
     }
