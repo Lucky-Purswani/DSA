@@ -15,7 +15,7 @@ public:
             int k = 0;
             while(k<word.size()){
                 if(i[j] == word[k]){
-                    cout << i[j] << " " << word[k] << j << " " << k << endl;
+                    // cout << i[j] << " " << word[k] << " " << j << " " << k << endl;
                     if(substrCheck(word, i, k, j)){
                         cnt++;
                         break;
