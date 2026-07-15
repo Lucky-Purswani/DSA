@@ -7,7 +7,6 @@ public:
             return;
         }
 
-        cout << temp << " ";
         string atI = mp[d[i]]; //"abc"
         for(int j = 0; j<atI.length(); j++){
             solve(d, i+1, mp, temp+atI[j]);
