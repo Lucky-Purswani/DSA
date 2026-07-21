@@ -4,29 +4,29 @@ public:
         int prev = 0, curr = 0, mx = 0;
         int i = 0, n = s.size();
 
-        while (i < n) {
-
-            // Count current zero block
-            curr = 0;
-            while (i < n && s[i] == '0') {
+        while(i < n){
+            //count number of 0's
+            while(i < n && s[i] == '0'){
                 curr++;
                 i++;
             }
 
-            // Skip one block of ones
-            while (i < n && s[i] == '1') {
+            //Skip 1's
+            while(i<n && s[i] == '1'){
                 i++;
             }
 
-            // If there was a previous zero block, combine them
-            if (prev)
-                mx = max(mx, prev + curr);
-
-            // Current becomes previous for the next iteration
+            //mx update condition
+            if(curr && prev){
+                mx = max(mx, prev+curr);
+            }
+            
             prev = curr;
+            curr = 0;
         }
-        for(auto &i : s){
-            if(i == '1') mx++;
+
+        for(auto &i:s){
+            if(i=='1') mx++;
         }
         return mx;
     }
