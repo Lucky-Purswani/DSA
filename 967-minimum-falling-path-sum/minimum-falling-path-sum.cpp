@@ -1,32 +1,50 @@
 class Solution {
 public:
+    const int INF = 1e9;
+    int solve(vector<vector<int>>& grid, int i, int j,
+              vector<vector<int>>& dp) {
+        if (i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size())
+            return INT_MAX;
+
+        if (i == grid.size() - 1)
+            return grid[i][j];
+
+        if (dp[i][j] != INF)
+            return dp[i][j];
+
+        int ld = INT_MAX, down = INT_MAX, rd = INT_MAX;
+
+        // Left Diagonal
+        if (j - 1 >= 0) {
+            int x = solve(grid, i + 1, j - 1, dp);
+            if (x != INT_MAX)
+                ld = grid[i][j] + x;
+        }
+
+        // Down
+        {
+            int x = solve(grid, i + 1, j, dp);
+            if (x != INT_MAX)
+                down = grid[i][j] + x;
+        }
+
+        // Right Diagonal
+        if (j + 1 < grid[0].size()) {
+            int x = solve(grid, i + 1, j + 1, dp);
+            if (x != INT_MAX)
+                rd = grid[i][j] + x;
+        }
+
+        return dp[i][j] = min({ld, down, rd});
+    }
+
     int minFallingPathSum(vector<vector<int>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
+        int n = grid.size(), m = grid[0].size();
+        vector<vector<int>> dp(n, vector<int>(m, INF));
 
-        vector<vector<int>> dp(n, vector<int>(m, 0));
-
-        // base case (first row)
-        for(int j = 0; j < m; j++){
-            dp[0][j] = grid[0][j];
-        }
-
-        // fill top → bottom
-        for(int i = 1; i < n; i++){
-            for(int j = 0; j < m; j++){
-
-                int up = dp[i-1][j];
-                int dl = (j > 0) ? dp[i-1][j-1] : 1e9;
-                int dr = (j < m-1) ? dp[i-1][j+1] : 1e9;
-
-                dp[i][j] = grid[i][j] + min({up, dl, dr});
-            }
-        }
-
-        // answer = min in last row
         int ans = INT_MAX;
-        for(int j = 0; j < m; j++){
-            ans = min(ans, dp[n-1][j]);
+        for (int j = 0; j < m; j++) {
+            ans = min(ans, solve(grid, 0, j, dp));
         }
 
         return ans;
