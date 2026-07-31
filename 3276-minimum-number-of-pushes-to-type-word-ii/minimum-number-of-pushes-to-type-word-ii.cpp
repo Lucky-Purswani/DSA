@@ -2,7 +2,6 @@ class Solution {
 public:
     int minimumPushes(string word) {
         int res = 0;
-        // int freq[26] = {0};
         vector<int> freq(26, 0);
 
         for (char c : word) {
