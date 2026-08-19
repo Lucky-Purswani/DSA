@@ -2,32 +2,26 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<long long> r(n);
+        vector<int> ans(n);
         long long temp = 1;
-        for(int i = n-1; i>=0; i--){
-            r[i] = temp;
+        for(int i = 0; i<n; i++){
+            ans[i] = temp;
             temp *= nums[i];
         }
 
-        for(auto &i:r){
-            cout << i << " ";
-        }
+        // for(auto &i:ans){
+        //     cout << i << " ";
+        // }
 
 
         temp = 1;
-        cout << endl;
-        vector<int> l(nums.begin(), nums.end());
-        for(int i = 0; i<n; i++){
-            cout << temp << " ";
-            nums[i] = temp*r[i];
-            temp *= l[i];
+        // cout << endl;
+        for(int i = n-1; i>=0; i--){
+            // cout << temp << " ";
+            ans[i] = temp*ans[i];
+            temp *= nums[i];
         }
 
-        return nums;
-
-        //  3, 2, 3, 4
-        //r 24, 12 , 4 , 1  
-        // var temp = 6
-        //  24, 36, 
+        return ans;
     }
 };
