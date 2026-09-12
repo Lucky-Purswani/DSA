@@ -32,9 +32,6 @@ public:
             }
         }
 
-        // if(ls > rs) ans++;
-
-        cout << ls << " " << rs << endl;
 
         while(j<n){
             ls += nums[j];
@@ -43,7 +40,6 @@ public:
             rs -= nums[j];
             ls -= nums[i];
             if(ls > rs) ans++;
-            cout << ls << " " << rs << endl;
             j++;
             i++;
         }
@@ -55,7 +51,6 @@ public:
             ls -= nums[j];
             rs -= nums[i];
             if(ls > rs) ans++;
-            cout << ls << " " << rs << endl;
 
             j++;
             i++;
